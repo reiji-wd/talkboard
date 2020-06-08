@@ -1,0 +1,25 @@
+<div class="row">
+
+  <div class="col-10 offset-1 col-sm-12 offset-sm-0 border rounded p-3">
+    <h2 class="mb-0"><%= @room.title %></h2>
+  </div>
+  
+
+  <%= form_with(model: @comment, local: true) do |f| %>
+  
+    <div class="form-group mt-4">
+      <%= f.text_field :content, class: 'form-control'%>
+    </div>
+    
+      <%= hidden_field_tag :room_id, @room.id %>
+    <div class="text-center">
+      <%= f.submit '投稿する', class: 'btn btn-success' %>
+    </div>
+  <% end %>
+  
+  <% @comments.each do |comment| %>
+      <%= comment.user.name %>
+      <%= comment.content %>
+  <% end %>
+
+</div>

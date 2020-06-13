@@ -1,4 +1,5 @@
-<h2 class="text-center">最新のスレッド</h2>
+<h2 class="text-center mt-4 mb-4 text-muted">最新のスレッド</h2>
 <% @rooms.each do |room| %>
   <div class="p-3 border rounded"><h4 class="mb-0"><%= link_to room.title, room_path(room), class: "text-dark" %></h4></div>
 <% end %>
+<%= paginate @rooms %>

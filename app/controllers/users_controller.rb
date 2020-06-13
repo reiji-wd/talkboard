@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only:[:show]
+  before_action :require_user_logged_in, only:[:show, :edit]
   
   def show
     @user = User.find(params[:id])
@@ -20,18 +20,33 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      redirect_to @user
+    end
   end
   
   def update
+    if @user = User.update(update_user_params)
+      redirect_to user_url(params[:id])
+    else
+      render edit_user_path(params[:id])
+    end
   end
   
   def destroy
+    @user = User.find_by(id: current_user.id)
+    @user.destroy
+    redirect_to signup_path
   end
   
   private 
   
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+  
+  def update_user_params
+    params.require(:user).permit(:name, :profile, :image, :email, :password, :password_confirmation)
   end
     
 end

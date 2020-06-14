@@ -17,9 +17,12 @@ class RoomsController < ApplicationController
   
   def create
     @room = current_user.rooms.build(room_params)
+    # binding.pry
     if @room.save
+      flash[:success] = 'スレッドを作成しました。'
       redirect_to @room
     else
+      flash.now[:danger] = 'スレッドの作成に失敗しました。'
       render :new
     end
   end

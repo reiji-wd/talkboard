@@ -13,6 +13,7 @@
 
     <div class="col-sm-12">
       <%= form_with(model: @user, local: true) do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
         <div class="form-group">
           <%= f.label :name, 'ユーザ名' %>
           <%= f.text_field :name, value: @user.name, class: 'form-control' %>

@@ -27,6 +27,11 @@
                   <%= image_tag comment.image.to_s, size: '200x200' %>
                 <% end %>
               </div>
+              <div>
+                <% if current_user.id == comment.user_id %>
+                  <%= link_to 'コメントを削除', comment_path(comment), method: :delete, data: { confirm: 'コメントを削除してもよろしいですか？？' } %>
+                <% end %>
+              </div>
             </div>
           </li>
         <% end %>
@@ -36,6 +41,9 @@
 
   <div class="col-sm-3 mt-4 p-0 d-sm-flex align-items-end">
   <%= form_with(model: @comment, local: true) do |f| %>
+  
+  <%= render 'layouts/error_messages', model: f.object %>
+  
     <div class="form-group">
       <%= f.text_area :content, class: 'form-control'%>
     </div>
